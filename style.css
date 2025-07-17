@@ -42,6 +42,8 @@ body {
     border: 2px solid #333;
     background-color: #f9f9f9;
     border-radius: 10px;
+    max-width: 100%;
+    height: auto;
 }
 
 #start-button {
@@ -67,7 +69,8 @@ body {
 
 .ad-container {
     margin: 10px 0;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: 250px;
     display: flex;
     justify-content: center;
@@ -88,13 +91,12 @@ body {
     #result {
         font-size: 1.2rem;
     }
-    .ad-container {
-        width: 100%;
-        max-width: 300px;
-    }
     #gameCanvas {
         width: 100%;
         height: auto;
+    }
+    .ad-container {
+        max-width: 300px;
     }
 }
 
@@ -112,8 +114,11 @@ body {
     #result {
         font-size: 1rem;
     }
-    .ad-container {
+    #gameCanvas {
         width: 100%;
+        height: auto;
+    }
+    .ad-container {
         max-width: 250px;
         height: 200px;
     }
