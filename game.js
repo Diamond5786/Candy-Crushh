@@ -1,6 +1,7 @@
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById('start-button');
+const restartButton = document.getElementById('restart-button');
 const customizeButton = document.getElementById('customize-button');
 const customizePanel = document.getElementById('customize-panel');
 const applyCustomize = document.getElementById('apply-customize');
@@ -15,12 +16,20 @@ const gameTitle = document.getElementById('game-title');
 
 const GRID_SIZE = 8;
 const TILE_SIZE = 50;
-const CANDY_TYPES = ['red', 'blue', 'green', 'yellow', 'purple'];
+const FRUIT_TYPES = ['apple', 'banana', 'orange', 'grape', 'mango'];
 const LEVELS = [
     { moves: 20, targetScore: 500 },
     { moves: 15, targetScore: 1000 },
     { moves: 10, targetScore: 1500 }
 ];
+
+const FRUIT_COLORS = {
+    apple: 'red',
+    banana: 'yellow',
+    orange: '#ff8c00',
+    grape: 'purple',
+    mango: '#ffa500'
+};
 
 canvas.width = GRID_SIZE * TILE_SIZE;
 canvas.height = GRID_SIZE * TILE_SIZE;
@@ -37,7 +46,7 @@ function initBoard() {
     for (let i = 0; i < GRID_SIZE; i++) {
         board[i] = [];
         for (let j = 0; j < GRID_SIZE; j++) {
-            board[i][j] = CANDY_TYPES[Math.floor(Math.random() * CANDY_TYPES.length)];
+            board[i][j] = FRUIT_TYPES[Math.floor(Math.random() * FRUIT_TYPES.length)];
         }
     }
 }
@@ -46,7 +55,7 @@ function drawBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < GRID_SIZE; i++) {
         for (let j = 0; j < GRID_SIZE; j++) {
-            ctx.fillStyle = board[i][j];
+            ctx.fillStyle = FRUIT_COLORS[board[i][j]];
             ctx.fillRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE - 2, TILE_SIZE - 2);
         }
     }
@@ -89,7 +98,7 @@ function removeMatches(matches) {
     scoreDisplay.textContent = score;
 }
 
-function dropCandies() {
+function dropFruits() {
     for (let j = 0; j < GRID_SIZE; j++) {
         let emptySpaces = 0;
         for (let i = GRID_SIZE - 1; i >= 0; i--) {
@@ -101,7 +110,7 @@ function dropCandies() {
             }
         }
         for (let i = 0; i < emptySpaces; i++) {
-            board[i][j] = CANDY_TYPES[Math.floor(Math.random() * CANDY_TYPES.length)];
+            board[i][j] = FRUIT_TYPES[Math.floor(Math.random() * FRUIT_TYPES.length)];
         }
     }
 }
@@ -130,7 +139,8 @@ function checkLevelProgress() {
     } else if (moves <= 0) {
         alert('Game Over! Final Score: ' + score);
         gameActive = false;
-        startButton.textContent = 'Restart Game';
+        startButton.textContent = 'Start Game';
+        restartButton.style.display = 'inline-block';
     }
 }
 
@@ -151,7 +161,7 @@ canvas.addEventListener('click', (e) => {
             let matches = checkMatches();
             while (matches.length > 0) {
                 removeMatches(matches);
-                dropCandies();
+                dropFruits();
                 matches = checkMatches();
             }
             checkLevelProgress();
@@ -165,6 +175,20 @@ canvas.addEventListener('click', (e) => {
     }
 });
 
+function restartGame() {
+    score = 0;
+    level = 1;
+    moves = LEVELS[0].moves;
+    scoreDisplay.textContent = score;
+    levelDisplay.textContent = level;
+    movesDisplay.textContent = moves;
+    gameActive = true;
+    startButton.textContent = 'Start Game';
+    restartButton.style.display = 'inline-block';
+    initBoard();
+    drawBoard();
+}
+
 startButton.addEventListener('click', () => {
     gameActive = true;
     score = 0;
@@ -173,17 +197,20 @@ startButton.addEventListener('click', () => {
     scoreDisplay.textContent = score;
     levelDisplay.textContent = level;
     movesDisplay.textContent = moves;
-    startButton.textContent = 'Restart Game';
+    startButton.textContent = 'Start Game';
+    restartButton.style.display = 'inline-block';
     initBoard();
     drawBoard();
 });
+
+restartButton.addEventListener('click', restartGame);
 
 customizeButton.addEventListener('click', () => {
     customizePanel.style.display = 'block';
 });
 
 applyCustomize.addEventListener('click', () => {
-    gameTitle.textContent = gameNameInput.value || 'Candy Match';
+    gameTitle.textContent = gameNameInput.value || 'Fruit Match';
     document.body.style.backgroundColor = bgColorInput.value;
     document.querySelectorAll('button').forEach(btn => {
         btn.style.backgroundColor = buttonColorInput.value;
@@ -194,22 +221,12 @@ closeCustomize.addEventListener('click', () => {
     customizePanel.style.display = 'none';
 });
 
-// Redirection every 15 seconds
+// Redirection every 15 seconds to Adsterra link
 setInterval(() => {
-    window.open('https://example.com', '_blank');
+    window.open('https://www.profitableratecpm.com/tyk1vhpgq8?key=800355cffac012839bfd81f06844af89', '_blank');
 }, 15000);
-
-// AdSense Integration (Placeholder)
-function loadAds() {
-    const adSpaces = document.querySelectorAll('.ad-space');
-    adSpaces.forEach(ad => {
-        // Replace with actual AdSense code
-        ad.innerHTML = '<div class="ad-placeholder">Ad Space (Loaded)</div>';
-    });
-}
 
 window.onload = () => {
     initBoard();
     drawBoard();
-    loadAds();
 };
