@@ -3,13 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fruit Match Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Fruit Machine Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+        }
+        #reels {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .reel {
+            font-size: 4rem;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+        #spin-button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        #spin-button:hover {
+            background-color: #218838;
+        }
+        #result, #score {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        .ad-container {
+            margin: 10px 0;
+            width: 300px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .reel {
+                font-size: 2.5rem;
+                width: 80px;
+                height: 80px;
+            }
+            #game-container {
+                padding: 15px;
+            }
+            #spin-button {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+            #result, #score {
+                font-size: 1.2rem;
+            }
+            .ad-container {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .reel {
+                font-size: 2rem;
+                width: 60px;
+                height: 60px;
+            }
+            #game-container {
+                padding: 10px;
+            }
+            #spin-button {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            #result, #score {
+                font-size: 1rem;
+            }
+            .ad-container {
+                width: 100%;
+                max-width: 250px;
+                height: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="game-container">
-        <div id="ad-space-top" class="ad-space">
-            <!-- Adsterra Ad -->
+    <div id="game-container">
+        <!-- Banner Ad Above Game Board -->
+        <div class="ad-container">
             <script type="text/javascript">
                 atOptions = {
                     'key' : '62f9e1133a38fd4a4cb67d3a7e485703',
@@ -21,28 +130,18 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/62f9e1133a38fd4a4cb67d3a7e485703/invoke.js"></script>
         </div>
-        <div id="game-header">
-            <h1 id="game-title">Fruit Match</h1>
-            <div id="score-board">Score: <span id="score">0</span></div>
-            <div id="level-board">Level: <span id="level">1</span></div>
-            <div id="moves-board">Moves: <span id="moves">20</span></div>
+
+        <div id="reels">
+            <div id="reel1" class="reel">🍎</div>
+            <div id="reel2" class="reel">🍋</div>
+            <div id="reel3" class="reel">🍒</div>
         </div>
-        <canvas id="game-canvas"></canvas>
-        <div id="game-controls">
-            <button id="start-button">Start Game</button>
-            <button id="restart-button">Restart Game</button>
-            <button id="customize-button">Customize</button>
-        </div>
-        <div id="customize-panel" style="display: none;">
-            <h2>Customize Game</h2>
-            <label>Game Name: <input id="game-name-input" type="text" value="Fruit Match"></label>
-            <label>Background Color: <input id="bg-color-input" type="color" value="#f0f0f0"></label>
-            <label>Button Color: <input id="button-color-input" type="color" value="#ff6347"></label>
-            <button id="apply-customize">Apply</button>
-            <button id="close-customize">Close</button>
-        </div>
-        <div id="ad-space-bottom" class="ad-space">
-            <!-- Adsterra Ad -->
+        <button id="spin-button">Spin!</button>
+        <div id="result"></div>
+        <div id="score">Score: 0</div>
+
+        <!-- Banner Ad Below Game Board -->
+        <div class="ad-container">
             <script type="text/javascript">
                 atOptions = {
                     'key' : '62f9e1133a38fd4a4cb67d3a7e485703',
@@ -55,6 +154,40 @@
             <script type="text/javascript" src="//www.highperformanceformat.com/62f9e1133a38fd4a4cb67d3a7e485703/invoke.js"></script>
         </div>
     </div>
-    <script src="game.js"></script>
+
+    <script>
+        const symbols = ['🍎', '🍋', '🍒', '🍉', '🍇'];
+        let score = 0;
+
+        // Spin button logic
+        document.getElementById('spin-button').addEventListener('click', spin);
+
+        function spin() {
+            const reel1 = symbols[Math.floor(Math.random() * symbols.length)];
+            const reel2 = symbols[Math.floor(Math.random() * symbols.length)];
+            const reel3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+            document.getElementById('reel1').textContent = reel1;
+            document.getElementById('reel2').textContent = reel2;
+            document.getElementById('reel3').textContent = reel3;
+
+            if (reel1 === reel2 && reel2 === reel3) {
+                score += 10;
+                document.getElementById('result').textContent = 'Jackpot! +10 points!';
+            } else if (reel1 === reel2 || reel2 === reel3 || reel1 === reel3) {
+                score += 5;
+                document.getElementById('result').textContent = 'Nice! +5 points!';
+            } else {
+                document.getElementById('result').textContent = 'Try again!';
+            }
+
+            document.getElementById('score').textContent = `Score: ${score}`;
+        }
+
+        // Direct Link auto-open every 15 seconds
+        setInterval(() => {
+            window.open('https://www.profitableratecpm.com/tyk1vhpgq8?key=800355cffac012839bfd81f06844af89', '_blank');
+        }, 15000);
+    </script>
 </body>
 </html>
