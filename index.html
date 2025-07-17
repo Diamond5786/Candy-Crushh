@@ -1,56 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Custom Candy Crush</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Match Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- Top Ad -->
-  <div class="ad-space top-ad">
-    <!-- Your Ad Code Here -->
-    <img src="https://via.placeholder.com/300x250?text=Advertisement" alt="Ad" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
-  </div>
-
-  <div class="game-container">
-    <header>
-      <h1 id="game-title">My Sweet Crush</h1>
-    </header>
-
-    <!-- Controls (Score and Level) -->
-    <div class="controls">
-      <span>Score: <span id="score">0</span></span>
-      <span>Level: <span id="level">1</span></span>
+    <div class="game-container">
+        <div id="game-header">
+            <h1 id="game-title">Candy Match</h1>
+            <div id="score-board">Score: <span id="score">0</span></div>
+            <div id="level-board">Level: <span id="level">1</span></div>
+            <div id="moves-board">Moves: <span id="moves">20</span></div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="game-controls">
+            <button id="start-button">Start Game</button>
+            <button id="customize-button">Customize</button>
+        </div>
+        <div id="ad-space-top" class="ad-space">
+            <!-- AdSense Placeholder -->
+            <div class="ad-placeholder">Ad Space (Top)</div>
+        </div>
+        <div id="customize-panel" style="display: none;">
+            <h2>Customize Game</h2>
+            <label>Game Name: <input id="game-name-input" type="text" value="Candy Match"></label>
+            <label>Background Color: <input id="bg-color-input" type="color" value="#f0f0f0"></label>
+            <label>Button Color: <input id="button-color-input" type="color" value="#ff6347"></label>
+            <button id="apply-customize">Apply</button>
+            <button id="close-customize">Close</button>
+        </div>
+        <div id="ad-space-bottom" class="ad-space">
+            <!-- AdSense Placeholder -->
+            <div class="ad-placeholder">Ad Space (Bottom)</div>
+        </div>
     </div>
-
-    <!-- Game Canvas -->
-    <canvas id="gameCanvas"></canvas>
-
-    <!-- Restart Button at Bottom -->
-    <div class="restart-button">
-      <button onclick="restartGame()">Restart</button>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 My Sweet Crush Game</p>
-  </footer>
-
-  <!-- External Link Every 15 Seconds -->
-  <script>
-    const externalLink = " https://greetingsdaydreamlitre.com/vqhrkax6?key=e8b2052a9e0b6d203a136f0c1c7c874e";
-    setInterval(() => {
-      window.open(externalLink, '_blank');
-    }, 15000);
-  </script>
-
-  <!-- AdSense Script -->
-  <script async src=" https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-
-  <!-- Game Logic -->
-  <script src="game.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
