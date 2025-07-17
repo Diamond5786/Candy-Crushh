@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candy Match Game</title>
+    <title>Fruit Match Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-container">
+        <div id="ad-space-top" class="ad-space">
+            <!-- Adsterra Ad -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '62f9e1133a38fd4a4cb67d3a7e485703',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/62f9e1133a38fd4a4cb67d3a7e485703/invoke.js"></script>
+        </div>
         <div id="game-header">
-            <h1 id="game-title">Candy Match</h1>
+            <h1 id="game-title">Fruit Match</h1>
             <div id="score-board">Score: <span id="score">0</span></div>
             <div id="level-board">Level: <span id="level">1</span></div>
             <div id="moves-board">Moves: <span id="moves">20</span></div>
@@ -17,23 +30,29 @@
         <canvas id="game-canvas"></canvas>
         <div id="game-controls">
             <button id="start-button">Start Game</button>
+            <button id="restart-button">Restart Game</button>
             <button id="customize-button">Customize</button>
-        </div>
-        <div id="ad-space-top" class="ad-space">
-            <!-- AdSense Placeholder -->
-            <div class="ad-placeholder">Ad Space (Top)</div>
         </div>
         <div id="customize-panel" style="display: none;">
             <h2>Customize Game</h2>
-            <label>Game Name: <input id="game-name-input" type="text" value="Candy Match"></label>
+            <label>Game Name: <input id="game-name-input" type="text" value="Fruit Match"></label>
             <label>Background Color: <input id="bg-color-input" type="color" value="#f0f0f0"></label>
             <label>Button Color: <input id="button-color-input" type="color" value="#ff6347"></label>
             <button id="apply-customize">Apply</button>
             <button id="close-customize">Close</button>
         </div>
         <div id="ad-space-bottom" class="ad-space">
-            <!-- AdSense Placeholder -->
-            <div class="ad-placeholder">Ad Space (Bottom)</div>
+            <!-- Adsterra Ad -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '62f9e1133a38fd4a4cb67d3a7e485703',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/62f9e1133a38fd4a4cb67d3a7e485703/invoke.js"></script>
         </div>
     </div>
     <script src="game.js"></script>
