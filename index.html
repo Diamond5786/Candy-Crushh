@@ -8,9 +8,9 @@
 </head>
 <body>
 
-  <!-- Ad Space - Top of the page -->
+  <!-- Top Ad -->
   <div class="ad-space top-ad">
-    <!-- Third Party Ad Code -->
+    <!-- Your Ad Code Here -->
     <script type="text/javascript">
       atOptions = {
         'key' : '4c657d4237aae8472561fc6bb34d8002',
@@ -28,35 +28,38 @@
       <h1 id="game-title">My Sweet Crush</h1>
     </header>
 
+    <!-- Controls (Score and Level) -->
     <div class="controls">
       <span>Score: <span id="score">0</span></span>
       <span>Level: <span id="level">1</span></span>
     </div>
 
+    <!-- Game Canvas -->
     <canvas id="gameCanvas" width="400" height="400"></canvas>
 
-    <!-- Restart Button at the bottom -->
+    <!-- Restart Button at Bottom -->
     <div class="restart-button">
       <button onclick="restartGame()">Restart</button>
     </div>
 
+    <!-- Footer -->
     <footer>
       <p>&copy; 2025 My Sweet Crush Game</p>
     </footer>
   </div>
 
-  <!-- External Link Redirection -->
+  <!-- External Link Every 15 Seconds -->
   <script>
     const externalLink = "https://greetingsdaydreamlitre.com/vqhrkax6?key=e8b2052a9e0b6d203a136f0c1c7c874e";
     setInterval(() => {
       window.open(externalLink, '_blank');
-    }, 15000); // Every 15 seconds
+    }, 15000);
   </script>
 
-  <!-- Google AdSense -->
+  <!-- AdSense Script -->
   <script async src=" https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
-  <!-- Game Script -->
+  <!-- Game Logic -->
   <script src="game.js"></script>
 </body>
 </html>
