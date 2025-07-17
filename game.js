@@ -1,8 +1,19 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+// Set dynamic canvas size based on screen width
+function setCanvasSize() {
+  const containerWidth = document.querySelector(".game-container").offsetWidth;
+  canvas.width = containerWidth;
+  canvas.height = containerWidth; // Square canvas
+  gridSize = Math.floor(containerWidth / candySize);
+}
+
+window.addEventListener("resize", setCanvasSize);
+
+setCanvasSize();
+
 const gridSize = 8;
-const candySize = canvas.width / gridSize;
 let score = 0;
 let level = 1;
 let grid = [];
@@ -36,6 +47,7 @@ function getRandomCandy() {
 // Draw the grid
 function drawGrid() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const candySize = canvas.width / gridSize;
   for (let row = 0; row < gridSize; row++) {
     for (let col = 0; col < gridSize; col++) {
       ctx.fillStyle = grid[row][col];
@@ -51,21 +63,11 @@ canvas.addEventListener("click", function (e) {
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  const clickedCol = Math.floor(x / candySize);
-  const clickedRow = Math.floor(y / candySize);
+  const clickedCol = Math.floor(x / (canvas.width / gridSize));
+  const clickedRow = Math.floor(y / (canvas.height / gridSize));
 
   if (clickedRow >= 0 && clickedRow < gridSize && clickedCol >= 0 && clickedCol < gridSize) {
-    // Swap with adjacent candy
-    if (
-      (clickedCol > 0 && grid[clickedRow][clickedCol - 1] === grid[clickedRow][clickedCol]) ||
-      (clickedCol < gridSize - 1 && grid[clickedRow][clickedCol + 1] === grid[clickedRow][clickedCol]) ||
-      (clickedRow > 0 && grid[clickedRow - 1][clickedCol] === grid[clickedRow][clickedCol]) ||
-      (clickedRow < gridSize - 1 && grid[clickedRow + 1][clickedCol] === grid[clickedRow][clickedCol])
-    ) {
-      alert("Match found! No swap needed.");
-    } else {
-      alert("No match found. Try again.");
-    }
+    alert("You clicked on row: " + clickedRow + ", col: " + clickedCol);
   }
 });
 
